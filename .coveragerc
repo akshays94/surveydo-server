@@ -1,0 +1,10 @@
+[run]
+branch = True
+omit = *migrations*,
+       *urls*,
+       *test*,
+       *admin*,
+       ./manage.py,
+       ./surveydo-server/config/*,
+       ./surveydo-server/wsgi.py,
+       *__init__*
