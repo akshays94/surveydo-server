@@ -2,13 +2,15 @@ from rest_framework import viewsets, mixins
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action
 from rest_framework import status
-from .models import User
-from .permissions import IsUserOrReadOnly
-from .serializers import CreateUserSerializer, UserSerializer
-
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+
+from ..models import User
+from ..permissions import IsUserOrReadOnly
+from ..serializers.user import CreateUserSerializer
+from ..serializers.user import UserSerializer
+
 
 
 class UserViewSet(mixins.ListModelMixin,

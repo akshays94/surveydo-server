@@ -5,12 +5,19 @@ from django.contrib import admin
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
-from .app.views import UserViewSet, UserCreateViewSet, CustomAuthToken, LogoutViewSet
+from .app.viewsets.user import UserViewSet
+from .app.viewsets.user import UserCreateViewSet
+from .app.viewsets.user import CustomAuthToken
+from .app.viewsets.user import LogoutViewSet
+from .app.viewsets.survey import SurveyViewSet
+from .app.viewsets.question import SurveyQuestionViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'register-users', UserCreateViewSet)
 router.register(r'auth', LogoutViewSet, basename='logout')
+router.register(r'surveys', SurveyViewSet, basename='surveys')
+router.register(r'questions', SurveyQuestionViewSet, basename='questions')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

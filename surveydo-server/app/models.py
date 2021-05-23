@@ -87,4 +87,4 @@ class SurveyResponseAnswer(models.Model):
 
 # docker-compose run web python manage.py makemigrations
 # docker-compose run web python manage.py migrate
-# test1
+# docker exec -it online-shop-multitenant_postgres_1 psql -U postgres -d postgres

@@ -19,11 +19,11 @@ services:
       - "8003:8003"
     depends_on:
       - postgres
-  documentation:
-    restart: always
-    build: ./
-    command: "mkdocs serve"
-    volumes:
-      - ./:/code
-    ports:
-      - "8001:8001"
+  # documentation:
+  #   restart: always
+  #   build: ./
+  #   command: "mkdocs serve"
+  #   volumes:
+  #     - ./:/code
+  #   ports:
+  #     - "8001:8001"
