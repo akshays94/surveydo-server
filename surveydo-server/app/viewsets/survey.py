@@ -40,6 +40,7 @@ class SurveyViewSet(
         survey = get_object_or_404(Survey, pk=pk)
         survey.title = request.data.get('title', survey.title)
         survey.description = request.data.get('description', survey.description)
+        survey.is_collect_email_addresses = request.data.get('is_collect_email_addresses', survey.is_collect_email_addresses)
         survey.save()
         return Response()
 

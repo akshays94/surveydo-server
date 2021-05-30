@@ -10,7 +10,8 @@ class SurveySerializer(serializers.ModelSerializer):
             'id',
             'title',
             'description',
-            'modified_on'
+            'modified_on',
+            'is_collect_email_addresses'
         ]
 
 
