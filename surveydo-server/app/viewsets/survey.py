@@ -26,6 +26,9 @@ class SurveyViewSet(
     def retrieve(self, request, pk=None):
         survey = get_object_or_404(Survey, pk=pk)
         questions = survey.surveyquestion_set.all().order_by('order_no')
+        # for i, q in enumerate(questions):
+        #     q.order_no = i + 1
+        #     q.save()
         survey = SurveySerializer(survey).data
         survey.update({
             'questions': SurveyQuestionSerializer(questions, many=True).data

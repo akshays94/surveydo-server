@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets
 from rest_framework import mixins
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -27,4 +28,4 @@ class SurveyQuestionViewSet(
         for i, question in enumerate(questions):
             question.order_no = i + 1
             question.save()
-        return Response()
+        return Response(status=status.HTTP_204_NO_CONTENT)

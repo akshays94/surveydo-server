@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
@@ -39,9 +41,16 @@ class SurveyQuestionSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        return SurveyQuestion.objects.create(**validated_data)
+        survey = validated_data['survey']
+        question = SurveyQuestion.objects.create(**validated_data)
+        
+        survey.modified_on = datetime.now()
+        survey.save()
+        
+        return question
 
     def update(self, instance, validated_data):
+        survey = validated_data['survey']
         instance.question = validated_data.get(
             'question', instance.question)
         instance.question_type = validated_data.get(
@@ -51,4 +60,8 @@ class SurveyQuestionSerializer(serializers.ModelSerializer):
         instance.configuration = validated_data.get(
             'configuration', instance.configuration)
         instance.save()
+
+        survey.modified_on = datetime.now()
+        survey.save()
+        
         return instance
