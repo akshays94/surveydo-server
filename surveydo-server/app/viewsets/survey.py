@@ -2,11 +2,13 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets
 from rest_framework import mixins
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from ..models import Survey
 from ..serializers.survey import SurveySerializer
+from ..serializers.survey import SurveyResponseSerializer
 from ..serializers.question import SurveyQuestionSerializer
 
 
@@ -26,9 +28,6 @@ class SurveyViewSet(
     def retrieve(self, request, pk=None):
         survey = get_object_or_404(Survey, pk=pk)
         questions = survey.surveyquestion_set.all().order_by('order_no')
-        # for i, q in enumerate(questions):
-        #     q.order_no = i + 1
-        #     q.save()
         survey = SurveySerializer(survey).data
         survey.update({
             'questions': SurveyQuestionSerializer(questions, many=True).data
@@ -59,3 +58,16 @@ class SurveyViewSet(
         return Response(
             SurveyQuestionSerializer(questions, many=True).data
         )
+
+    @action(url_path='add-response', methods=['post'], detail=True)
+    def gather_response(self, request, pk=None):
+        survey = get_object_or_404(Survey, pk=pk)
+        data = request.data
+        
+        response_serializer = SurveyResponseSerializer(
+            data=request.data,
+            context={'survey': survey})
+        response_serializer.is_valid(raise_exception=True)
+        response = response_serializer.save()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
