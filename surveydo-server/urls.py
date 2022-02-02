@@ -11,17 +11,19 @@ from .app.viewsets.user import CustomAuthToken
 from .app.viewsets.user import LogoutViewSet
 from .app.viewsets.survey import SurveyViewSet
 from .app.viewsets.question import SurveyQuestionViewSet
+from .app.viewsets.health_check import HealthCheckViewSet
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'register-users', UserCreateViewSet)
-router.register(r'auth', LogoutViewSet, basename='logout')
-router.register(r'surveys', SurveyViewSet, basename='surveys')
-router.register(r'questions', SurveyQuestionViewSet, basename='questions')
+router.register(r'v1/users', UserViewSet)
+router.register(r'v1/register-users', UserCreateViewSet)
+router.register(r'v1/auth', LogoutViewSet, basename='logout')
+router.register(r'v1/surveys', SurveyViewSet, basename='surveys')
+router.register(r'v1/questions', SurveyQuestionViewSet, basename='questions')
+router.register(r'v1/health-check', HealthCheckViewSet, basename='health-check')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)),
+    path('api/', include(router.urls)),
     path('login/', CustomAuthToken.as_view()),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
