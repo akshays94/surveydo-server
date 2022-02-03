@@ -9,7 +9,9 @@ services:
     environment:
       - DJANGO_SECRET_KEY=production
     image: web
-    build: ./Dockerfile-prod
+    build:
+      context: ./
+      dockerfile: Dockerfile-prod
     volumes:
       - ./:/code
     ports:
@@ -19,5 +21,6 @@ services:
     command: [
       "gunicorn",
       "--bind", "0.0.0.0:8080",
-      "--workers", "4",
+      "--workers", "1",
+      "--access-logfile", "-",
       "surveydo-server.wsgi:application"]
