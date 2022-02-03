@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres:11.6
+
+  web:
+    restart: always
+    environment:
+      - DJANGO_SECRET_KEY=production
+    image: web
+    build: ./Dockerfile-prod
+    volumes:
+      - ./:/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    command: ["gunicorn", "surveydo-server.wsgi:application"]
