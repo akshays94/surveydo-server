@@ -16,4 +16,4 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
-    command: ["gunicorn","--bind", "0.0.0.0:$PORT", "surveydo-server.wsgi:application"]
+    command: ["gunicorn","--bind", "0.0.0.0:8080", "surveydo-server.wsgi:application"]
