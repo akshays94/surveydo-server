@@ -15,12 +15,12 @@ services:
     volumes:
       - ./:/code
     ports:
-      - "8080:8080"
+      - "80:8080"
     depends_on:
       - postgres
     command: [
       "gunicorn",
       "--bind", "0.0.0.0:8080",
-      "--workers", "1",
+      "--workers", "10",
       "--access-logfile", "-",
       "surveydo-server.wsgi:application"]
