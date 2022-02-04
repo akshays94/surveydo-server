@@ -202,5 +202,6 @@ class Common(Configuration):
         )
     }
 
+
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True

@@ -6,7 +6,7 @@ from ..models import SurveyResponseAnswer
 
 
 class SurveySerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Survey
         fields = [
@@ -41,12 +41,13 @@ class SurveyResponseSerializer(serializers.Serializer):
 
         survey_questions = survey.surveyquestion_set.all().values('id', 'is_required')
 
-        required_question_ids = set(map(lambda i: str(i['id']), filter(lambda q: q['is_required'], survey_questions)))
+        required_question_ids = set(map(
+            lambda i: str(i['id']), filter(lambda q: q['is_required'], survey_questions)))
 
         answered_question_ids = set(answers.keys())
 
         all_question_ids = set(map(lambda q: str(q['id']), survey_questions))
-        
+
         unwanted_question_ids = all_question_ids - answered_question_ids
         if unwanted_question_ids:
             raise serializers.ValidationError({
@@ -67,11 +68,11 @@ class SurveyResponseSerializer(serializers.Serializer):
 
             question = SurveyQuestion.objects.get(id=question_id)
             title = answer_item['title']
-            other = answer_item['other']
-            
+            # other = answer_item['other']
+
             if question.question_type in ['SHORT', 'PARAG', 'DROPD']:
                 answer_item.update({'other': None})
-            
+
             if question.question_type in ['MULTI', 'CHECK', 'DROPD']:
                 options = set(map(lambda o: o['title'], question.configuration['options']))
                 if title not in options:
@@ -82,7 +83,7 @@ class SurveyResponseSerializer(serializers.Serializer):
                 if question.question_type in ['MULTI', 'CHECK']:
                     is_add_other = question.configuration.get('isAddOther', False)
                     if not is_add_other:
-                        answer_item.update({'other': None})    
+                        answer_item.update({'other': None})
 
         data.update({
             'survey': survey

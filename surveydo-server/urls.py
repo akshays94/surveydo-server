@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
-from rest_framework.authtoken import views
+# from rest_framework.authtoken import views
 from .app.viewsets.user import UserViewSet
 from .app.viewsets.user import UserCreateViewSet
 from .app.viewsets.user import CustomAuthToken

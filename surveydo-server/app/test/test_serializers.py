@@ -1,7 +1,7 @@
 from django.test import TestCase
 # from django.forms.models import model_to_dict
 # from django.contrib.auth.hashers import check_password
-from nose.tools import eq_, ok_
+from nose.tools import eq_
 # from .factories import UserFactory
 # from ..serializers import CreateUserSerializer
 

@@ -70,7 +70,8 @@ class SurveyResponse(models.Model):
     responded_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.id} - {self.survey.title} => {self.responded_on} {self.email_address if self.email_address else ""}'
+        return f'{self.id} - {self.survey.title} \
+            => {self.responded_on} {self.email_address if self.email_address else ""}'
 
 
 class SurveyResponseAnswer(models.Model):

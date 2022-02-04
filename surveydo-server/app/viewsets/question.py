@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework import mixins
 from rest_framework import status
-from rest_framework.decorators import action
+# from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from ..models import SurveyQuestion
@@ -11,10 +11,10 @@ from ..serializers.question import SurveyQuestionSerializer
 
 
 class SurveyQuestionViewSet(
-    mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.GenericViewSet):
+        mixins.CreateModelMixin,
+        mixins.UpdateModelMixin,
+        mixins.DestroyModelMixin,
+        viewsets.GenericViewSet):
 
     queryset = SurveyQuestion.objects.all()
     serializer_class = SurveyQuestionSerializer

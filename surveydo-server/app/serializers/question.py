@@ -7,7 +7,7 @@ from ..models import SurveyQuestion
 
 
 class SurveyQuestionSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = SurveyQuestion
         fields = [
@@ -27,7 +27,7 @@ class SurveyQuestionSerializer(serializers.ModelSerializer):
                 message='This question already exists'
             )
         ]
-    
+
     def validate(self, data):
         is_create_case = self.instance is None
 
@@ -37,16 +37,16 @@ class SurveyQuestionSerializer(serializers.ModelSerializer):
                     survey=data['survey']).order_by('id').last()
             data['order_no'] = \
                 last_question.order_no + 1 if last_question else 1
-        
+
         return data
 
     def create(self, validated_data):
         survey = validated_data['survey']
         question = SurveyQuestion.objects.create(**validated_data)
-        
+
         survey.modified_on = datetime.now()
         survey.save()
-        
+
         return question
 
     def update(self, instance, validated_data):
@@ -63,5 +63,5 @@ class SurveyQuestionSerializer(serializers.ModelSerializer):
 
         survey.modified_on = datetime.now()
         survey.save()
-        
+
         return instance

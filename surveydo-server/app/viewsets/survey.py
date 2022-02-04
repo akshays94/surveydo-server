@@ -13,10 +13,10 @@ from ..serializers.question import SurveyQuestionSerializer
 
 
 class SurveyViewSet(
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.GenericViewSet):
+        mixins.ListModelMixin,
+        mixins.RetrieveModelMixin,
+        mixins.DestroyModelMixin,
+        viewsets.GenericViewSet):
 
     serializer_class = SurveySerializer
     pagination_class = None
@@ -39,7 +39,8 @@ class SurveyViewSet(
         survey = get_object_or_404(Survey, pk=pk)
         survey.title = request.data.get('title', survey.title)
         survey.description = request.data.get('description', survey.description)
-        survey.is_collect_email_addresses = request.data.get('is_collect_email_addresses', survey.is_collect_email_addresses)
+        survey.is_collect_email_addresses = request.data.get(
+            'is_collect_email_addresses', survey.is_collect_email_addresses)
         survey.save()
         return Response()
 
@@ -62,12 +63,12 @@ class SurveyViewSet(
     @action(url_path='add-response', methods=['post'], detail=True)
     def gather_response(self, request, pk=None):
         survey = get_object_or_404(Survey, pk=pk)
-        data = request.data
-        
+        # data = request.data
+
         response_serializer = SurveyResponseSerializer(
             data=request.data,
             context={'survey': survey})
         response_serializer.is_valid(raise_exception=True)
-        response = response_serializer.save()
+        response_serializer.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -12,7 +12,6 @@ from ..serializers.user import CreateUserSerializer
 from ..serializers.user import UserSerializer
 
 
-
 class UserViewSet(mixins.ListModelMixin,
                   mixins.RetrieveModelMixin,
                   mixins.UpdateModelMixin,
