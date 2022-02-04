@@ -17,6 +17,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
   Test-the-APIs:
+    needs: Check-for-Linting-Errors
     runs-on: ubuntu-latest
     steps:
       # - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -32,3 +33,5 @@ jobs:
         run: |
           docker-compose run web python manage.py test
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  
