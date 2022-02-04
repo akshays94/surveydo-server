@@ -18,4 +18,5 @@ jobs:
         run: |
           ls ${{ github.workspace }}
           pwd
+          docker-compose run web python manage.py test
       - run: echo "🍏 This job's status is ${{ job.status }}."
